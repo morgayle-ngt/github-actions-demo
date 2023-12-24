@@ -4,22 +4,22 @@ on: push
 
 jobs:
     ascii_job:
-        runs-on: ubuntu-latest
-        steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v4
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-        - name: Install Cowsay Program
-          run: sudo apt-get install cowsay -y
+      - name: Install Cowsay Program
+        run: sudo apt-get install cowsay -y
 
-        - name: Execute Cowsay CMD
-          run: cowsay -f yoda "Mind what you have learned. Save you it can" >> yoda.txt
+      - name: Execute Cowsay CMD
+        run: cowsay -f yoda "Mind what you have learned. Save you it can" >> yoda.txt
 
-        - name: Test File Exists
-          run: grep -i "yoda" yoda.txt
+      - name: Test File Exists
+        run: grep -i "yoda" yoda.txt
 
-        - name: Read File
-          run: cat yoda.txt
+      - name: Read File
+        run: cat yoda.txt
 
-        - name: List Repo Files
-          run: ls -ltra
+      - name: List Repo Files
+        run: ls -ltra

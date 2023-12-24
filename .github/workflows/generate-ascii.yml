@@ -16,10 +16,10 @@ jobs:
         run: cowsay -f tux "Sudo! Give Me Super Power!" >> tux.txt
 
       - name: Test File Exists
-        run: grep -i "tux" tux.txt
+        run: grep -i "Sudo" tux.txt
 
       - name: Read File
         run: cat tux.txt
 
       - name: List Repo Files
-        run: ls -ltra
+        run: ls -lrta

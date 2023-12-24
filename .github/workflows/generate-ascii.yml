@@ -9,17 +9,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Install Cowsay Program
-        run: sudo apt-get install cowsay -y
-
-      - name: Execute Cowsay CMD
-        run: cowsay -f tux "Sudo! Give Me Super Power!" >> tux.txt
-
-      - name: Test File Exists
-        run: grep -i "Sudo" tux.txt
-
-      - name: Read File
-        run: cat tux.txt
-
       - name: List Repo Files
         run: ls -lrta
+
+      - name: Executing Shell Script
+        run: /.ascii-script.sh

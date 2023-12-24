@@ -13,13 +13,13 @@ jobs:
         run: sudo apt-get install cowsay -y
 
       - name: Execute Cowsay CMD
-        run: cowsay -f yoda "Mind what you have learned. Save you it can" >> yoda.txt
+        run: cowsay -f tux "Sudo! Give Me Super Power!" >> tux.txt
 
       - name: Test File Exists
-        run: grep -i "yoda" yoda.txt
+        run: grep -i "tux" tux.txt
 
       - name: Read File
-        run: cat yoda.txt
+        run: cat tux.txt
 
       - name: List Repo Files
         run: ls -ltra

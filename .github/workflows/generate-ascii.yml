@@ -6,7 +6,6 @@ jobs:
     build_job_1:
       runs-on: ubuntu-latest
       steps:
-
       - name: Install Cowsay Program
         run: sudo apt-get install cowsay -y
 
@@ -28,9 +27,6 @@ jobs:
       needs: build_job_1
       runs-on: ubuntu-latest
       steps:
-    #   - name: Checkout Repo
-    #     uses: actions/checkout@v4
-
       - name: Download a Tux Text File
         uses: actions/download-artifact@v4
         with:

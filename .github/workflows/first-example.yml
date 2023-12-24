@@ -15,8 +15,8 @@ jobs:
             ls -lrta
             cat README.md
 
-        - name: Generate ASCII Artwork
-          run: cowsay -f yoda "Mind what you have learned. Save you it can" >> yoda.txt
+        # - name: Generate ASCII Artwork
+        #   run: cowsay -f yoda "Mind what you have learned. Save you it can" >> yoda.txt
 
         # - name: List files
         #   run: ls

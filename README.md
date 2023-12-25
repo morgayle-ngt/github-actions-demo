@@ -5,3 +5,5 @@ We will be learning Github Actions,
 - enhance productivity and code quality
 
 Some random text
+
+Placeholder to trigger skip of CI during commit request

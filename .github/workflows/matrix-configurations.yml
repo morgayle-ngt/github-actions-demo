@@ -1,53 +1,57 @@
 name: Multi-OS Docker Deployment Workflow
 
-on: [push, pull_request, workflow_dispatch]
+on: 
+#   - push
+#   - pull_request
+  - workflow_dispatch
  
 jobs:
-    # Linux-and-Windows-Deploy:
-    #   strategy:
-    #     fail-fast: false
-    #     max-parallel: 2
-    #     matrix:
-    #       os: [ubuntu-latest, ubuntu-20.04, windows-latest]
-    #       images: [hello-world, alpine]
-    #       exclude:
-    #         - images: alpine
-    #           os: windows-latest
-    #         - images: amd64/alpine
-    #           os: ubuntu-20.04
-    #   runs-on: ${{ matrix.os }}
-    #   steps:
-    #   - name: Echo Docker Details
-    #     run: docker info
+    Linux-and-Windows-Deploy:
+      strategy:
+        fail-fast: false
+        max-parallel: 2
+        matrix:
+          os: [ubuntu-latest, ubuntu-20.04, windows-latest]
+          images: [hello-world, alpine]
+          exclude:
+            - images: alpine
+              os: windows-latest
+            - images: amd64/alpine
+              os: ubuntu-20.04
+      runs-on: ${{ matrix.os }}
+      steps:
+      - name: Echo Docker Details
+        run: docker info
 
-    #   - name: Run Image on ${{ matrix.os }}
-    #     run: docker run ${{ matrix.images }}
+      - name: Run Image on ${{ matrix.os }}
+        run: docker run ${{ matrix.images }}
 
+##### MacOS Hosted Docker CLI is currently not supported. Please deploy a self-hosted runner #####
 
-    macOS-Deploy:
-        runs-on: macos-latest
-        steps:
-        - name: Install Docker CLI and Docker Machine
-          run: |
-            brew install docker docker-machine
-            brew install hyperkit
+    # macOS-Deploy:
+    #     runs-on: macos-latest
+    #     steps:
+    #     - name: Install Docker CLI and Docker Machine
+    #       run: |
+    #         brew install docker docker-machine
+    #         brew install hyperkit
     
-        - name: Install docker-machine-driver-hyperkit
-          run: |
-            curl -L https://github.com/machine-drivers/docker-machine-driver-hyperkit/releases/download/v1.0.0/docker-machine-driver-hyperkit > /usr/local/bin/docker-machine-driver-hyperkit
-            chmod +x /usr/local/bin/docker-machine-driver-hyperkit
-            sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit
-            sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
+    #     - name: Install docker-machine-driver-hyperkit
+    #       run: |
+    #         curl -L https://github.com/machine-drivers/docker-machine-driver-hyperkit/releases/download/v1.0.0/docker-machine-driver-hyperkit > /usr/local/bin/docker-machine-driver-hyperkit
+    #         chmod +x /usr/local/bin/docker-machine-driver-hyperkit
+    #         sudo chown root:wheel /usr/local/bin/docker-machine-driver-hyperkit
+    #         sudo chmod u+s /usr/local/bin/docker-machine-driver-hyperkit
 
-        - name: Create Docker Machine using HyperKit
-          run: |
-            docker-machine create --driver hyperkit default
+    #     - name: Create Docker Machine using HyperKit
+    #       run: |
+    #         docker-machine create --driver hyperkit default
     
-        - name: Configure Environment
-          run: |
-            eval $(docker-machine env default)
+    #     - name: Configure Environment
+    #       run: |
+    #         eval $(docker-machine env default)
     
-        - name: Run Docker Hello World
-          run: |
-            docker pull hello-world
-            docker run hello-world
+    #     - name: Run Docker Hello World
+    #       run: |
+    #         docker pull hello-world
+    #         docker run hello-world

@@ -27,24 +27,20 @@ jobs:
     macOS-Deploy:
         runs-on: macos-latest
         steps:
-        - name: Install Docker CLI
+        - name: Install Docker CLI and Docker Machine
           run: |
-            # Install Docker CLI tools
             brew install docker docker-machine
-
-        - name: Create Docker Machine (Hypothetical)
+            brew install hyperkit
+    
+        - name: Create Docker Machine using HyperKit
           run: |
-            # Create a new Docker Machine
-            # Testing Purposes Only on Github Actions MacOS Runner
-            docker-machine create --driver virtualbox default
-
+            docker-machine create --driver hyperkit default
+    
         - name: Configure Environment
           run: |
-            # Configure the shell environment to use the Docker Machine
             eval $(docker-machine env default)
-
+    
         - name: Run Docker Hello World
           run: |
-            # Pull and run the hello-world image
             docker pull hello-world
             docker run hello-world

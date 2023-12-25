@@ -3,40 +3,48 @@ name: Multi-OS Docker Deployment Workflow
 on: [push, pull_request, workflow_dispatch]
  
 jobs:
-    Linux-and-Windows-Deploy:
-      strategy:
-        fail-fast: false
-        max-parallel: 2
-        matrix:
-          os: [ubuntu-latest, ubuntu-20.04, windows-latest]
-          images: [hello-world, alpine]
-          exclude:
-            - images: alpine
-              os: windows-latest
-            - images: amd64/alpine
-              os: ubuntu-20.04
-      runs-on: ${{ matrix.os }}
-      steps:
-      - name: Echo Docker Details
-        run: docker info
+    # Linux-and-Windows-Deploy:
+    #   strategy:
+    #     fail-fast: false
+    #     max-parallel: 2
+    #     matrix:
+    #       os: [ubuntu-latest, ubuntu-20.04, windows-latest]
+    #       images: [hello-world, alpine]
+    #       exclude:
+    #         - images: alpine
+    #           os: windows-latest
+    #         - images: amd64/alpine
+    #           os: ubuntu-20.04
+    #   runs-on: ${{ matrix.os }}
+    #   steps:
+    #   - name: Echo Docker Details
+    #     run: docker info
 
-      - name: Run Image on ${{ matrix.os }}
-        run: docker run ${{ matrix.images }}
+    #   - name: Run Image on ${{ matrix.os }}
+    #     run: docker run ${{ matrix.images }}
 
 
     macOS-Deploy:
-        needs: Linux-and-Windows-Deploy
         runs-on: macos-latest
         steps:
-        - name: Install Docker
+        - name: Install Docker CLI
           run: |
-            brew install --cask docker
-            open /Applications/Docker.app
-            # Wait for Docker to start
-            sleep 60
-    
-        - name: Echo Docker Details
-          run: docker info
-    
-        - name: Run Image on macOS
-          run: docker run hello-world
+            # Install Docker CLI tools
+            brew install docker docker-machine
+
+        - name: Create Docker Machine (Hypothetical)
+          run: |
+            # Create a new Docker Machine
+            # Testing Purposes Only on Github Actions MacOS Runner
+            docker-machine create --driver virtualbox default
+
+        - name: Configure Environment
+          run: |
+            # Configure the shell environment to use the Docker Machine
+            eval $(docker-machine env default)
+
+        - name: Run Docker Hello World
+          run: |
+            # Pull and run the hello-world image
+            docker pull hello-world
+            docker run hello-world

@@ -11,7 +11,7 @@ jobs:
         max-parallel: 2
         matrix:
           os: [ubuntu-latest, ubuntu-20.04, windows-latest, macos-latest]
-          images: [hello-world, alpine, nginx]
+          images: [hello-world, alpine]
           exclude:
             - images: alpine
               os: windows-latest
